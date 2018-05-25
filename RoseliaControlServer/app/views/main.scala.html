@@ -1,0 +1,35 @@
+@*
+ * This template is called from the `index` template. This template
+ * handles the rendering of the page header and body tags. It takes
+ * two arguments, a `String` for the title of the page and an `Html`
+ * object to insert into the body of the page.
+ *@
+@(title: String, addrJs: Seq[String] = Seq.empty)(content: Html)()
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        @* Here's where we render the page title `String`. *@
+        <title>@title</title>
+        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/materialize.css")">
+        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/roselia.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/logo.png")">
+        <meta name="apple-mobile-web-app-title" content="Roselia Control">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <link rel="apple-touch-icon" href="@routes.Assets.versioned("images/logo.png")"/>
+        <meta name="theme-color" content="#5869b1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    </head>
+    <body class="blue-grey darken-4 white-text">
+        @* And here's where we render the `Html` object containing
+         * the page content. *@
+        @content
+        <script src="@routes.Assets.versioned("javascripts/jquery-3.2.1.min.js")" defer></script>
+        <script src="@routes.Assets.versioned("javascripts/materialize.min.js")" defer></script>
+        <script src="@routes.Assets.versioned("javascripts/vue.min.js")" defer></script>
+        @for(js <- addrJs){
+            <script src="@routes.Assets.versioned("javascripts/" + js)" defer></script>
+        }
+    </body>
+</html>

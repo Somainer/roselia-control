@@ -1,0 +1,43 @@
+@()
+@main.apply("Roselia Control", List("rc-message.js")) {
+    <nav class="blog-color navbar navbar-expand-xl navbar-dark bg-dark box-shadow fixed-top">
+        <div class="container">
+            <a href="./" class="brand-logo blog-title">Roselia Control</a>
+        </div>
+    </nav>
+    <div id="main-content" class="center container">
+        <img src="@routes.Assets.versioned("images/logo-rsla.png")" class="responsive-img">
+        <div class="col s12">
+            <div class="preloader-wrapper small active" v-if="app.states.loading">
+                <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <div v-show="!app.states.loading" class="container row">
+                <div v-show="!app.states.isConnected" class="input-field col m5 s12 offset-m6">
+                    <input @@keyup.enter="app.startConnection()" id="login-code" type="number" class="validate col" v-model="app.states.clientId">
+                    <label for="login-code">Client ID</label>
+                    <button v-if="app.states.clientId" class="btn blog-color waves-effect waves-light"
+                    onclick="app.startConnection()">Connect</button>
+                </div>
+                <div v-show="app.states.isConnected" class="input-field col m5 s12 offset-m6 center center-align">
+                    <h3 class="blog-text">Client Connected</h3>
+                    <button onclick="app.sendKeys('left')" class="btn-large blog-color waves-effect waves-light left">Left</button>
+                    <button onclick="app.sendKeys('right')" class="btn-large blog-color waves-effect waves-light right">Right</button>
+                    <input id="send-keys" v-model="app.states.sendKeys" class="col">
+                    <button v-for="k in app.neededKeys" class="btn blog-color waves-effect waves-light left" :onclick="`app.sendKeys('${k}')`">{{k}}</button>
+                    <button onclick="app.stopConnection()" class="btn red waves-effect waves-light row right">Stop</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}

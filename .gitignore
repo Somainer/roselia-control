@@ -1,0 +1,10 @@
+*.class
+*.log
+*/.idea/*
+*/out/*
+*.cache
+*/*/target/*
+**/target/*
+*/packages/*
+**/bin/*
+**/obj/*
